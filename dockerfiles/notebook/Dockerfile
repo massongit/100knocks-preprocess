@@ -27,8 +27,8 @@ RUN pip install --no-cache-dir pipenv==2021.5.29 \
     && pipenv install --system \
     && Rscript -e 'install.packages("pak", repos = sprintf("https://r-lib.github.io/p/pak/stable/%s/%s/%s", .Platform$pkgType, R.Version()$os, R.Version()$arch))' \
     && Rscript -e "install.packages('DBI', dependencies = TRUE, error = TRUE, repos='https://cran.r-project.org')" \
-    && Rscript -e "install.packages('RPostgreSQL', version = "0.7-4", dependencies = TRUE, error = TRUE, repos='https://cran.r-project.org')" \
-    && Rscript -e "install.packages('themis', version = "1.0.0", dependencies = TRUE, error = TRUE, repos='https://cran.r-project.org')" \
+    && Rscript -e "install.packages('RPostgreSQL', version = '0.7-4', dependencies = TRUE, error = TRUE, repos='https://cran.r-project.org')" \
+    && Rscript -e "install.packages('themis', version = '1.0.0', dependencies = TRUE, error = TRUE, repos='https://cran.r-project.org')" \
     && rm -rf Pipfile* .cache/R/pkgcache/sysreqs/docker/*/Dockerfile /tmp/* /var/tmp/*
 
 HEALTHCHECK --interval=5s --retries=20 CMD ["curl", "-s", "-S", "-o", "/dev/null", "http://localhost:8888"]
