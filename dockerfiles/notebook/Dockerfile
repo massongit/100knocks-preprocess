@@ -26,7 +26,7 @@ COPY Pipfile.lock .
 RUN pip install --no-cache-dir pipenv==2021.5.29 \
     && pipenv install --system \
     && Rscript -e 'install.packages("pak", repos = sprintf("https://r-lib.github.io/p/pak/stable/%s/%s/%s", .Platform$pkgType, R.Version()$os, R.Version()$arch))' \
-    && Rscript -e 'pak::repo_add(CRAN = "RSPM@2022-12-16"); pak::pak(c("DBI", "https://cran.r-project.org/src/contrib/Archive/RPostgreSQL/RPostgreSQL_0.7-4.tar.gz", "https://cran.r-project.org/src/contrib/Archive/themis/themis_1.0.0.tar.gz"))' \
+    && Rscript -e 'pak::repo_add(CRAN = "RSPM@2022-12-16"); pak::pkg_install(c("DBI", "https://cran.r-project.org/src/contrib/Archive/RPostgreSQL/RPostgreSQL_0.7-4.tar.gz", "https://cran.r-project.org/src/contrib/Archive/themis/themis_1.0.0.tar.gz"))' \
     && rm -rf Pipfile* .cache/R/pkgcache/sysreqs/docker/*/Dockerfile /tmp/* /var/tmp/*
 
 HEALTHCHECK --interval=5s --retries=20 CMD ["curl", "-s", "-S", "-o", "/dev/null", "http://localhost:8888"]
