@@ -40,7 +40,9 @@ jobs:
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
       - run: sed -i -e "s/python=.*/python=${{ steps.get_python_version.outputs.minor_version }}/g" environment.yml
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
-      - run: pipenv install $(pipenv run pip freeze | grep ipython==) $(pipenv run pip freeze | grep ipykernel==)
+      - run: |
+          pipenv install
+          pipenv install $(pipenv run pip freeze | grep ipython==) $(pipenv run pip freeze | grep ipykernel==)
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
       - uses: dev-hato/actions-diff-pr-management@v1.1.12
         if: success() || failure()
