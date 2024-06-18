@@ -18,6 +18,7 @@ jobs:
       - name: Get Python version
         id: get_python_version
         run: |
+          chmod -R 777 docker/
           docker compose build
           echo "version=$(docker compose run --rm notebook python --version | sed -e 's/Python //g')" >> "$GITHUB_OUTPUT"
       - name: Set up Python
