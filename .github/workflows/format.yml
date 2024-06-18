@@ -17,7 +17,9 @@ jobs:
           fetch-depth: 0
       - name: Get Python version
         id: get_python_version
-        run: echo "version=$(docker compose run --rm --build notebook python --version | sed -e 's/Python //g')" >> "$GITHUB_OUTPUT"
+        run: |
+          docker compose build
+          echo "version=$(docker compose run --rm notebook python --version | sed -e 's/Python //g')" >> "$GITHUB_OUTPUT"
       - name: Set up Python
         uses: actions/setup-python@v5.1.0
         with:
