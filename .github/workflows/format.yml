@@ -41,6 +41,7 @@ jobs:
       - run: sed -i -e "s/python=.*/python=${{ steps.get_python_version.outputs.minor_version }}/g" environment.yml
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
       - run: |
+          pip install "$(grep -oE 'pipenv[^ ]+' dockerfiles/notebook/Dockerfile)"
           pipenv install
           pipenv install $(pipenv run pip freeze | grep ipython==) $(pipenv run pip freeze | grep ipykernel==)
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
