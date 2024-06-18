@@ -27,7 +27,6 @@ jobs:
         id: get_python_version
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
         run: |
-          chmod -R 777 docker/
           docker compose up -d --wait
           echo "version=$(docker compose exec notebook python --version | sed -e 's/Python //g')" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@v5.1.0
@@ -47,4 +46,4 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           branch-name-prefix: fix-format
-          pr-title-prefix: formatを修正しました。
+          pr-title-prefix: format修正
