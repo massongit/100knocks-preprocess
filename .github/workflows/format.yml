@@ -37,23 +37,24 @@ jobs:
         with:
           python-version: ${{ steps.get_python_version.outputs.version }}
           cache: pipenv
-      - run: sed -i -e "s/python_version = \".*\"/python_version = \"${{ steps.get_python_version.outputs.minor_version }}\"/g" Pipfile
+      - name: Install
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
-      - run: sed -i -e "s/python=.*/python=${{ steps.get_python_version.outputs.minor_version }}/g" environment.yml
-        if: github.event_name != 'pull_request' || github.event.action != 'closed'
-      - run: |
+        run: |
           pip install "$(grep -oE 'pipenv[^ ]+' dockerfiles/notebook/Dockerfile)"
           pipenv install
+      - if: github.event_name != 'pull_request' || github.event.action != 'closed'
+        run: sed -i -e "s/python_version = \".*\"/python_version = \"${{ steps.get_python_version.outputs.minor_version }}\"/g" Pipfile
+      - name: Copy packages from Pipfile to environment.yml
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
-      - run: |
+        run: |
+          sed -i -e "s/python=.*/python=${{ steps.get_python_version.outputs.minor_version }}/g" environment.yml
           for package in $(yq -p toml -o yml '.packages' Pipfile | sed -e 's/: //g')
           do
-              package_name="$(echo $package | sed -e 's/==.*$//g')"
-              grep "$package_name" environment.yml
-              sed -i -e "s/$package_name==[0-9.]*$/$package/g" environment.yml
-              sed -i -e "s/$package_name=[0-9.]*$/$(echo "$package" | sed -e 's/==/=/g')/g" environment.yml
+            package_name="$(echo $package | sed -e 's/==.*$//g')"
+            grep "$package_name" environment.yml
+            sed -i -e "s/$package_name==[0-9.]*$/$package/g" environment.yml
+            sed -i -e "s/$package_name=[0-9.]*$/$(echo "$package" | sed -e 's/==/=/g')/g" environment.yml
           done
-        if: github.event_name != 'pull_request' || github.event.action != 'closed'
       - uses: dev-hato/actions-diff-pr-management@v1.1.12
         if: success() || failure()
         with:
