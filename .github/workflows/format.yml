@@ -23,6 +23,7 @@ jobs:
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Get Python version
         id: get_python_version
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
