@@ -48,10 +48,10 @@ jobs:
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
         run: |
           sed -i -e "s/python=.*/python=${{ steps.get_python_version.outputs.minor_version }}/g" environment.yml
-          for package in $(yq -p toml -o yml '.packages' Pipfile | sed -e 's/: //g')
+          for package_name in $(yq -p toml -o tsv '.packages | keys' Pipfile)
           do
-            package_name="$(echo $package | sed -e 's/==.*$//g')"
-            grep "$package_name" environment.yml
+            echo grep "$package_name" environment.yml
+            package="$(pipenv run pip freeze | grep "$package_name==")"
             sed -i -e "s/$package_name==[0-9.]*$/$package/g" environment.yml
             sed -i -e "s/$package_name=[0-9.]*$/$(echo "$package" | sed -e 's/==/=/g')/g" environment.yml
           done
