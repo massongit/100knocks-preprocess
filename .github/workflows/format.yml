@@ -53,7 +53,7 @@ jobs:
           do
             if ! grep "$package_name" environment.yml
             then
-              echo "$package_name is not exit in environment.yml."
+              echo "$package_name is not exit in environment.yml." 1>&2
               exit 1
             fi
 
