@@ -48,7 +48,7 @@ jobs:
       - name: Copy packages from Pipfile to environment.yml
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
         run: |
-          sed -i -e "s/python=.*/python=${{ steps.get_python_version.outputs.minor_version }}/g" environment.yml
+          sed -i -e "s/ python=.*/ python=${{ steps.get_python_version.outputs.minor_version }}/g" environment.yml
           for package_name in $(yq -p toml -o tsv '.packages | keys' Pipfile)
           do
             if ! grep "$package_name" environment.yml
@@ -58,8 +58,8 @@ jobs:
             fi
 
             package="$(pipenv run pip freeze | grep "$package_name==")"
-            sed -i -e "s/$package_name==[0-9.]*$/$package/g" environment.yml
-            sed -i -e "s/$package_name=[0-9.]*$/${package//==/=}/g" environment.yml
+            sed -i -e "s/ $package_name==[0-9.]*$/ $package/g" environment.yml
+            sed -i -e "s/ $package_name=[0-9.]*$/ ${package//==/=}/g" environment.yml
           done
       - uses: dev-hato/actions-diff-pr-management@v1.1.12
         if: success() || failure()
