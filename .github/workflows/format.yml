@@ -51,7 +51,7 @@ jobs:
           sed -i -e "s/python=.*/python=${{ steps.get_python_version.outputs.minor_version }}/g" environment.yml
           for package_name in $(yq -p toml -o tsv '.packages | keys' Pipfile)
           do
-            echo grep "$package_name" environment.yml
+            grep "$package_name" environment.yml
             package="$(pipenv run pip freeze | grep "$package_name==")"
             sed -i -e "s/$package_name==[0-9.]*$/$package/g" environment.yml
             sed -i -e "s/$package_name=[0-9.]*$/${package//==/=}/g" environment.yml
