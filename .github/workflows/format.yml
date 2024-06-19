@@ -43,7 +43,7 @@ jobs:
       - run: |
           pip install "$(grep -oE 'pipenv[^ ]+' dockerfiles/notebook/Dockerfile)"
           pipenv install
-          pipenv install $(pipenv run pip freeze | grep ipython==) $(pipenv run pip freeze | grep ipykernel==)
+          pipenv install ipython==8.16.1
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
       - uses: dev-hato/actions-diff-pr-management@v1.1.12
         if: success() || failure()
