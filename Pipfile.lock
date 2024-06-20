@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ad7e36a123aca57df8a6e2f1683be6f12689d4bf6ad8914f604c08e79b76effa"
+            "sha256": "f23f5f06ec550c0a40f6321592b5100914a3a9fb80517461b50625e8e5b61581"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -35,7 +35,7 @@
                 "sha256:03f829f5bb1923180821643f8753b0502c3b682293992485b0eef2807afa5cba",
                 "sha256:63579f9a0628e06278f7e47b7d7d5b6ce20dc65c5e96a6f3ca99a6adca0396e8"
             ],
-            "markers": "python_version < '4.0' and python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7' and python_version < '4.0'",
             "version": "==2.2.1"
         },
         "certifi": {
@@ -139,7 +139,7 @@
                 "sha256:fd1abc0d89e30cc4e02e4064dc67fcc51bd941eb395c502aac3ec19fab46b519",
                 "sha256:ff8fa367d09b717b2a17a052544193ad76cd49979c805768879cb63d9ca50561"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==3.3.2"
         },
         "decorator": {
@@ -266,7 +266,7 @@
                 "sha256:4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369",
                 "sha256:bc5dd2abb727a5319567b7a813e6a2e7318c39f4f487cfe6c89c6f9c7d25197d"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==3.1.4"
         },
         "joblib": {
@@ -348,7 +348,7 @@
                 "sha256:fce659a462a1be54d2ffcacea5e3ba2d74daa74f30f5f143fe0c58636e355fdd",
                 "sha256:ffee1f21e5ef0d712f9033568f8344d5da8cc2869dbd08d87c84656e6a2d2f68"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==2.1.5"
         },
         "matplotlib-inline": {
@@ -483,7 +483,7 @@
                 "sha256:0d7bfa67001d5e39d02c224b663abc33687405033a8c422d0d675a5a13361d10",
                 "sha256:1e1b29cb58080b1e69f207c893a1a7bf16d127a5c30c9d17a25a5d77792e5360"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==3.0.47"
         },
         "psycopg2": {
@@ -723,7 +723,7 @@
                 "sha256:545ee36ab9f94bb227715d6bff63872509280c584046854d4d977daff169c6e2",
                 "sha256:734dedf43c1a453eb0ab02dd9e245290855bb44ee3a569acb661fd378484955f"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==25.2.0"
         },
         "sqlparse": {
