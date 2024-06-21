@@ -21,11 +21,10 @@ USER jovyan
 WORKDIR /home/jovyan
 COPY Pipfile .
 COPY Pipfile.lock .
-COPY install.R .
 
 RUN pip install --no-cache-dir pipenv==2024.0.1 \
     && pipenv install --system \
-    && Rscript install.R \
-    && rm -rf Pipfile* install.R .cache/R/pkgcache/sysreqs/docker/*/Dockerfile /tmp/* /var/tmp/* .npm/
+    && mamba install --yes r-themis==1.0.2 r-rpostgresql==0.7_6 \
+    && rm -rf Pipfile* .cache/R/pkgcache/sysreqs/docker/*/Dockerfile /tmp/* /var/tmp/* .npm/
 
 HEALTHCHECK --interval=5s --retries=20 CMD ["curl", "-s", "-S", "-o", "/dev/null", "http://localhost:8888"]
