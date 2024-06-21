@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+jupysql = "==0.7.2"
 imblearn = "==0.0"
 SQLAlchemy = "==1.4.46"
 pandas = "==1.5.3"
