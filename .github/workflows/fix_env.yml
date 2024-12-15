@@ -1,4 +1,4 @@
-name: fix environment.yml and Pipfile
+name: fix environment.yml and pyproject.toml
 
 on:
   push:
@@ -24,6 +24,10 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
+      - name: Get uv version
+        id: get_uv_version
+        if: github.event_name != 'pull_request' || github.event.action != 'closed'
+        run: echo "uv_version=$(sed -e 's/uv==//g' requirements.txt)" >> "$GITHUB_OUTPUT"
       - name: Get Python version
         id: get_python_version
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
@@ -33,31 +37,32 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
           # shellcheck disable=SC2001
           echo "minor_version=$(echo "$version" | sed -e 's/\([0-9]*\.[0-9]*\).*/\1/g')" >> "$GITHUB_OUTPUT"
-      - uses: actions/setup-python@v5.1.0
+      - uses: astral-sh/setup-uv@v4.2.0
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
         with:
+          version: ${{steps.get_uv_version.outputs.uv_version}}
           python-version: ${{ steps.get_python_version.outputs.version }}
-          cache: pipenv
+          enable-cache: true
       - name: Install
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
-        run: |
-          pip install -r requirements.txt
-          pipenv install
+        run: uv sync
       - if: github.event_name != 'pull_request' || github.event.action != 'closed'
-        run: sed -i -e "s/python_version = \".*\"/python_version = \"${{ steps.get_python_version.outputs.minor_version }}\"/g" Pipfile
-      - name: Copy packages from Pipfile to environment.yml
+        run: sed -i -e "s/requires-python = \".*\"/requires-python = \"==${{ steps.get_python_version.outputs.minor_version }}\"/g" pyproject.toml
+      - name: Copy packages from pyproject.toml to environment.yml
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
         run: |
           sed -i -e "s/ python=.*/ python=${{ steps.get_python_version.outputs.minor_version }}/g" environment.yml
-          for package_name in $(yq -p toml -o tsv '.packages | keys' Pipfile)
+          for package_data in $(yq -p toml -o tsv '.project.dependencies' pyproject.toml)
           do
+            package_name="$(echo "$package_data" | sed -e 's/[<=>].+$//g')"
+
             if ! grep "$package_name" environment.yml
             then
               echo "$package_name is not exit in environment.yml." 1>&2
               exit 1
             fi
 
-            package="$(pipenv run pip freeze | grep "$package_name==")"
+            package="$(uv pip freeze | grep "$package_name==")"
             sed -i -e "s/ $package_name==[0-9.]*$/ $package/g" environment.yml
             sed -i -e "s/ $package_name=[0-9.]*$/ ${package//==/=}/g" environment.yml
           done
@@ -66,4 +71,4 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           branch-name-prefix: fix-env
-          pr-title-prefix: environment.ymlやPipfile修正
+          pr-title-prefix: environment.ymlやpyproject.toml修正
