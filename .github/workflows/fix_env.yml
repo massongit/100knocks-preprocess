@@ -63,9 +63,9 @@ jobs:
               exit 1
             fi
 
-            package="$(uv pip freeze | grep -i "$package_name==")"
-            sed -i -e "s/ $package_name==[0-9.]*$/ $package/g" environment.yml
-            sed -i -e "s/ $package_name=[0-9.]*$/ ${package//==/=}/g" environment.yml
+            package_version="$(uv pip freeze | grep -i "$package_name==" | sed -e 's/^.*==//g')"
+            sed -i -e "s/ $package_name==[0-9.]*$/ $package_name==$package_version/g" environment.yml
+            sed -i -e "s/ $package_name=[0-9.]*$/ $package_name=$package_version/g" environment.yml
           done
       - uses: dev-hato/actions-diff-pr-management@v1.1.12
         if: success() || failure()
