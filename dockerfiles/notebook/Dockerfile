@@ -25,7 +25,7 @@ COPY uv.lock .
 COPY install.R .
 
 RUN pip install --no-cache-dir -r requirements.txt \
-    && uv sync --frozen --python "$(which python)" \
+    && uv sync --frozen --python-preference only-system \
     && Rscript install.R \
     && pip uninstall -y uv \
     && rm -rf requirements.txt pyproject.toml uv.lock install.R .cache/R/pkgcache/sysreqs/docker/*/Dockerfile /tmp/* /var/tmp/* .npm/
