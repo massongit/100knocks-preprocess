@@ -54,7 +54,7 @@ jobs:
           sed -i -e "s/ python=.*/ python=${{ steps.get_python_version.outputs.minor_version }}/g" environment.yml
           for package_data in $(yq -p toml -o tsv '.project.dependencies' pyproject.toml)
           do
-            package_name="${package_data//[<=>].*$/}"
+            package_name="$(echo "$package_data" | sed -e 's/[<=>].+$//g')"
 
             if ! grep "$package_name" environment.yml
             then
