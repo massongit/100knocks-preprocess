@@ -30,6 +30,6 @@ RUN pip install --no-cache-dir -r requirements.txt \
     && pip uninstall -y uv \
     && rm -rf requirements.txt pyproject.toml uv.lock install.R .cache/R/pkgcache/sysreqs/docker/*/Dockerfile /tmp/* /var/tmp/* .npm/
 
-ENV PATH "/home/jovyan/.venv/bin:$PATH"
+ENV PATH="/home/jovyan/.venv/bin:$PATH"
 
 HEALTHCHECK --interval=5s --retries=20 CMD ["curl", "-s", "-S", "-o", "/dev/null", "http://localhost:8888"]
