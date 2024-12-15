@@ -47,7 +47,7 @@ jobs:
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
         run: uv sync
       - if: github.event_name != 'pull_request' || github.event.action != 'closed'
-        run: sed -i -e "s/requires-python = \".*\"/requires-python = \"==${{ steps.get_python_version.outputs.minor_version }}\"/g" pyproject.toml
+        run: sed -i -e "s/requires-python = \".*\"/requires-python = \"==${{ steps.get_python_version.outputs.version }}\"/g" pyproject.toml
       - name: Copy packages from pyproject.toml to environment.yml
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
         run: |
