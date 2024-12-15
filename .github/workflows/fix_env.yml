@@ -55,7 +55,7 @@ jobs:
           for package_data in $(yq -p toml -o tsv '.project.dependencies' pyproject.toml)
           do
             # shellcheck disable=SC2001
-            package_name="$(echo "$package_data" | sed -e 's/[<=>].+$//g')"
+            package_name="$(echo "$package_data" | sed -e 's/[<=>].*$//g')"
 
             if ! grep "$package_name" environment.yml
             then
@@ -63,7 +63,7 @@ jobs:
               exit 1
             fi
 
-            package="$(uv pip freeze | grep "$package_name==")"
+            package="$(uv pip freeze | grep -i "$package_name==")"
             sed -i -e "s/ $package_name==[0-9.]*$/ $package/g" environment.yml
             sed -i -e "s/ $package_name=[0-9.]*$/ ${package//==/=}/g" environment.yml
           done
