@@ -26,7 +26,7 @@ COPY install.R .
 
 RUN pip install --no-cache-dir -r requirements.txt \
     && uv sync --frozen \
-    && mv .venv/lib/ /opt/conda/lib/ \
+    && mv .venv/ /opt/conda/ \
     && Rscript install.R \
     && pip uninstall -y uv \
     && rm -rf requirements.txt pyproject.toml uv.lock install.R .cache/R/pkgcache/sysreqs/docker/*/Dockerfile /tmp/* /var/tmp/* .npm/ .venv/
