@@ -25,11 +25,9 @@ COPY uv.lock .
 COPY install.R .
 
 RUN pip install --no-cache-dir -r requirements.txt \
-    && uv sync --frozen --python-preference only-system \
+    && UV_PROJECT_ENVIRONMENT="$(which python | sed -e 's:/[^/]*/[^/]*$::g')" uv sync --frozen \
     && Rscript install.R \
     && pip uninstall -y uv \
     && rm -rf requirements.txt pyproject.toml uv.lock install.R .cache/R/pkgcache/sysreqs/docker/*/Dockerfile /tmp/* /var/tmp/* .npm/
-
-ENV PATH="/home/jovyan/.venv/bin:$PATH"
 
 HEALTHCHECK --interval=5s --retries=20 CMD ["curl", "-s", "-S", "-o", "/dev/null", "http://localhost:8888"]
