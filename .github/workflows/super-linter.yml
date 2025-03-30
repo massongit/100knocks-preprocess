@@ -61,6 +61,7 @@ jobs:
           FIX_JUPYTER_NBQA_BLACK: true
           FIX_JUPYTER_NBQA_ISORT: true
           FIX_JUPYTER_NBQA_RUFF: true
+          FIX_JSON_PRETTIER: true
       - uses: dev-hato/actions-diff-pr-management@v1.1.12
         if: success() || failure()
         with:
