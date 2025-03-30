@@ -281,3 +281,5 @@ dmypy.json
 cython_debug/
 
 !/.gitignore
+
+super-linter-output/super-linter-summary.md
