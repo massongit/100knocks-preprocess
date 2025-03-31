@@ -55,7 +55,7 @@ jobs:
       - run: |
           pip install --no-cache-dir -r requirements.txt
           pipenv install
-          cp -r .venv /home/runner/work/_temp/_github_workflow/.venv
+          cp -r "$(pipenv --venv)" /home/runner/work/_temp/_github_workflow/.venv
 
       ################################
       # Run Linter against code base #
