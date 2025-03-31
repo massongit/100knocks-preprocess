@@ -1,8 +1,7 @@
 [tool.nbqa.addopts]
 flake8 = [
     "--max-line-length=120",
-    "--extend-ignore=E203",
-    "--per-file-ignores=docker/work/answer/ans_preprocess_knock_SQL.ipynb:E402"
+    "--extend-ignore=E203"
 ]
 
 [tool.nbqa.exclude]
