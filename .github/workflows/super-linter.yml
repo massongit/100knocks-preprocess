@@ -54,7 +54,7 @@ jobs:
 
       - run: |
           pip install --no-cache-dir -r requirements.txt
-          pipenv install
+          pipenv install --dev
           cp -r "$(pipenv --venv)" /home/runner/work/_temp/_github_workflow/.venv
 
       ################################
