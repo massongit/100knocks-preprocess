@@ -1,0 +1,11 @@
+[tool.nbqa.addopts]
+flake8 = [
+    "--max-line-length=120",
+    "--extend-ignore=E203"
+]
+
+[tool.nbqa.exclude]
+flake8 = "docker/work/preprocess_knock_"
+mypy = "docker/work/preprocess_knock_"
+pylint = "docker/work/preprocess_knock_"
+ruff = "docker/work/preprocess_knock_"
