@@ -1,2 +1,3 @@
 [tool.nbqa.exclude]
 flake8 = "docker/work/preprocess_knock_"
+mypy = "docker/work/preprocess_knock_"
