@@ -47,6 +47,16 @@ jobs:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
 
+      - uses: actions/setup-python@v5.5.0
+        with:
+          python-version-file: Pipfile
+          cache: pipenv
+
+      - run: |
+          pip install --no-cache-dir -r requirements.txt
+          pipenv install
+          cp -r .venv /home/runner/work/_temp/_github_workflow/.venv
+
       ################################
       # Run Linter against code base #
       ################################
