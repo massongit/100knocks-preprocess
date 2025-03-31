@@ -1,5 +1,0 @@
-# https://github.com/super-linter/super-linter/blob/8129a432c760ae5956a0a7e89bf86ef89e7fd0d6/TEMPLATES/.flake8
-[flake8]
-max-line-length = 120
-extend-ignore = E203
-exclude = docker/work/preprocess_knock_Python.ipynb,docker/work/preprocess_knock_R.ipynb,docker/work/preprocess_knock_SQL.ipynb
