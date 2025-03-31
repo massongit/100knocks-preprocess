@@ -1,2 +1,2 @@
 [tool.nbqa.exclude]
-flake8 = "^docker/work/preprocess_knock_"
+flake8 = "docker/work/preprocess_knock_"
