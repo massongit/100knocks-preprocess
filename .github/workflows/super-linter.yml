@@ -44,15 +44,17 @@ jobs:
         with:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
+          persist-credentials: false
 
       ################################
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: super-linter/super-linter@v8.3.1
+        uses: super-linter/super-linter@47984f49b4e87383eed97890fe2dca6063bbd9c3 # v8.3.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_HTML: false
           VALIDATE_HTML_PRETTIER: false
           FILTER_REGEX_EXCLUDE: docker/.jupyter/jupyter_lab_config.py
           VALIDATE_SQLFLUFF: false
+          VALIDATE_BIOME_LINT: false

@@ -1,0 +1,12 @@
+---
+# https://github.com/super-linter/super-linter/blob/542ff97039e06088e30e3306fd6c34a3090e3946/TEMPLATES/trivy.yaml
+disable-telemetry: true
+exit-code: 1
+exit-on-eol: 2
+scan:
+  scanners:
+    - vuln
+    - misconfig
+    - secret
+secret:
+  config: /github/workspace/.github/linters/trivy-secret.yaml
