@@ -6,5 +6,5 @@ scan:
     - vuln
     - misconfig
     - secret
-skip-files:
-  - .gitleaks.toml
+secret:
+  config: /github/workspace/.github/linters/trivy-secret.yaml
