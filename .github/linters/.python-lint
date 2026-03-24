@@ -1,0 +1,21 @@
+# https://github.com/super-linter/super-linter/blob/eec862d0ea33fe6a836dfd545eef1125e530c794/TEMPLATES/.python-lint
+[MASTER]
+
+# Use multiple processes to speed up Pylint.
+jobs=0
+
+[MESSAGES CONTROL]
+
+# Ignoring Import Errors is desired as super-linter
+# does not support installing dependencies as it runs
+disable=
+    import-error,
+    C0103,
+    C0114,
+    C0116,
+    C0302,
+    C0413,
+    R0801,
+    W0104,
+    W0611,
+    W0621,
