@@ -38,14 +38,6 @@
             "markers": "python_version >= '3.7' and python_version < '4.0'",
             "version": "==2.2.1"
         },
-        "certifi": {
-            "hashes": [
-                "sha256:027692e4402ad994f1c42e52a4997a9763c646b73e4096e4d5d6db8af1d6f0fa",
-                "sha256:e887ab5cee78ea814d3472169153c2d12cd43b14bd03329a39a9c6e2e80bfba7"
-            ],
-            "markers": "python_version >= '3.7'",
-            "version": "==2026.2.25"
-        },
         "charset-normalizer": {
             "hashes": [
                 "sha256:06a7e86163334edfc5d20fe104db92fcd666e5a5df0977cb5680a506fe26cc8e",
