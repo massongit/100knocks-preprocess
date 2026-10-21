@@ -43,7 +43,7 @@ jobs:
         if: github.event_name != 'pull_request' || github.event.action != 'closed'
         run: |
           pip install -r requirements.txt
-          pipenv install
+          pipenv lock
       - if: github.event_name != 'pull_request' || github.event.action != 'closed'
         run: sed -i -e "s/python_version = \".*\"/python_version = \"${PYTHON_VERSION}\"/g" Pipfile
         env:
