@@ -39,6 +39,8 @@ jobs:
         with:
           python-version: ${{ steps.get_python_version.outputs.version }}
           enable-cache: true
+      - uses: flatt-security/setup-takumi-guard-pypi@a01b3b2a6436d3df60d4e29c805ad83a704aadc5 # v1.3.0
+        if: github.event_name != 'pull_request' || github.event.action != 'closed'
       - if: github.event_name != 'pull_request' || github.event.action != 'closed'
         run: yq -i ".project.requires-python|=\"==$PYTHON_VERSION\"" pyproject.toml
         env:
