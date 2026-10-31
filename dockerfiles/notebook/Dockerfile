@@ -33,16 +33,15 @@ COPY uv.lock .
 COPY install.R .
 
 RUN set -e \
-    && py_status=0 \
-    && r_status=0 \
     && ( \
       (uv export --frozen --no-emit-project -o requirements.txt && uv pip install --system --no-cache --require-hashes -r requirements.txt) & py_pid=$!; \
       Rscript install.R & r_pid=$!; \
+      py_status=0; \
+      r_status=0; \
       wait "$py_pid" || py_status=$?; \
       wait "$r_pid" || r_status=$?; \
+      test "$py_status" -eq 0 && test "$r_status" -eq 0; \
     ) \
-    && test "$py_status" -eq 0 \
-    && test "$r_status" -eq 0 \
     && rm -rf requirements.txt pyproject.toml uv.lock install.R .cache/R/pkgcache/sysreqs/docker/*/Dockerfile /tmp/* /var/tmp/* .npm/
 
 HEALTHCHECK --interval=5s --retries=20 CMD ["curl", "-s", "-S", "-o", "/dev/null", "http://localhost:8888"]
