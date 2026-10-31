@@ -13,6 +13,7 @@ services:
       - PGPASSWORD=postgres12345
       - POSTGRES_DB=dsdojo_db
       - DATABASE_HOST=localhost
+      - LANG=ja_JP.utf8
     volumes:
       - type: bind
         source: ./docker/db/init
